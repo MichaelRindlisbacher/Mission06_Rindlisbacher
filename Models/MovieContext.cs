@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+
+
 namespace Mission06_Rindlisbacher.Models
 {
     public class MovieContext : DbContext // Tell it it's a dbcontext file
@@ -9,5 +11,16 @@ namespace Mission06_Rindlisbacher.Models
         }
 
         public DbSet<Movie> Movies { get; set; } // Call the movie class and create a database with those objects
+        public DbSet<Category> Categories { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=Movies.sqlite"); // Specify your SQLite file
+            }
+        }
     }
+
 }
+
